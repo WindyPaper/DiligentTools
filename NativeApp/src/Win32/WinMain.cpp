@@ -31,6 +31,9 @@
 
 #include <Windows.h>
 #include <crtdbg.h>
+#include <stdio.h>
+#include <io.h>
+#include <fcntl.h>
 #include "NativeAppBase.hpp"
 #include "StringTools.hpp"
 #include "Timer.hpp"
@@ -44,6 +47,9 @@ LRESULT CALLBACK MessageProc(HWND, UINT, WPARAM, LPARAM);
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int cmdShow)
 {
 #if defined(_DEBUG) || defined(DEBUG)
+	AllocConsole();
+	freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);	
+
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
@@ -70,7 +76,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int cmdShow)
     g_pTheApp->GetDesiredInitialWindowSize(DesiredWidth, DesiredHeight);
     // Create a window
     LONG WindowWidth  = DesiredWidth > 0 ? DesiredWidth : 1280;
-    LONG WindowHeight = DesiredHeight > 0 ? DesiredHeight : 1024;
+    LONG WindowHeight = DesiredHeight > 0 ? DesiredHeight : 720;
     RECT rc           = {0, 0, WindowWidth, WindowHeight};
     AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
     HWND wnd = CreateWindowA("SampleApp", AppTitle,
