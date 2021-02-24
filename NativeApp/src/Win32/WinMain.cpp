@@ -49,6 +49,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int cmdShow)
 #if defined(_DEBUG) || defined(DEBUG)
 	AllocConsole();
 	freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);	
+	freopen_s((FILE**)stderr, "CONOUT$", "w", stderr);
 
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
